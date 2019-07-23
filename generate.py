@@ -8,21 +8,9 @@ class Client():
 
     URL = 'https://platform.segmentapis.com/v1beta/'
 
-    def __init__(self, user, password, workspace):
-        assert user != ''
-        assert password != ''
-        assert workspace != ''
-
-        token_payload = {
-            "access_token": {
-                "description": "workspace-graph-generator",
-                "scopes": "workspace:read",
-                "workspace_names": ['workspaces/' + workspace]
-            }
-        }
-
-        res = requests.post(Client.URL + 'access-tokens', auth=(user, password), json=token_payload)
-        self.token = res.json()['token']
+    def __init__(self, token, workspace):
+        assert token != ''
+        self.token = token
         self.workspace = workspace
 
     def get_headers(self):
@@ -58,7 +46,7 @@ class Graph():
         self.workspace = workspace
         self.nodes = set()
         self.edges = set()
- 
+
 
     def add_node(self, node):
         self.nodes.add(node)
@@ -77,11 +65,10 @@ class Graph():
 
 
 if __name__ == '__main__':
-    user = os.environ['USER']
-    password = os.environ['PASS']
+    token = os.environ['TOKEN']
     workspace = os.environ['WORKSPACE']
 
-    client = Client(user, password, workspace)
+    client = Client(token, workspace)
     graph = Graph(workspace)
     sources = client.get_sources()
     # for some reason it seems to error on large workspaces
@@ -89,7 +76,7 @@ if __name__ == '__main__':
         name = clean_node(source['display_name'])
         destinations = client.get_destinations(source)
         graph.add_node(clean_node(name))
-        
+
         for destination in destinations:
             graph.add_edge(name, clean_node(destination['display_name']))
 
