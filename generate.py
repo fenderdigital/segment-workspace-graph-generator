@@ -74,7 +74,7 @@ if __name__ == '__main__':
     graph = Graph(workspace)
     sources = client.get_sources()
     # for some reason it seems to error on large workspaces
-
+    # TODO: fix the :40 slicer
     for source in sources[:40]:
         name = clean_node(source['display_name'])
         destinations = client.get_destinations(source)
@@ -82,5 +82,5 @@ if __name__ == '__main__':
 
         for destination in destinations:
             graph.add_edge(name, clean_node(destination['display_name']))
-
+    # This step just prints the args to be passed to dot
     graph.render()

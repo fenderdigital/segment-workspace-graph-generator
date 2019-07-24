@@ -37,3 +37,17 @@ On a Mac you can view it in Chrome:
 ```shell
 $ open -a "Google Chrome" graph.svg
 ```
+## Workflow
+When the MakeFile is executed it executes generate.py which prints the arguments needed to generate the graph. Those arguments are then piped out to the dot command which intrun generates the graph of your workspace.
+
+## TODOs
+1. modify get_sources to paginate instead of pulling 100 sources
+2. modify get_destinations to paginate instead of pulling 100 destinations
+3. fix the :40 slicer on the main method
+4. look at a better graph alternative to dot
+
+## Refernece Materials
+description | URL
+----------- | -----------
+dot(1) documentation | https://linux.die.net/man/1/dot
+Segment Config Api | https://segment.com/docs/config-api/
