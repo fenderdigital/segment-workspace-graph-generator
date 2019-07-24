@@ -4,7 +4,7 @@
 This tool is a simple test of Segment's new Platform API. It uses a Python
 client to generate ultra-cool graphs of various Segment workspaces:
 
-![](./graph.svg)
+![](./images/graph.svg)
 
 ## Quickstart
 

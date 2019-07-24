@@ -19,12 +19,14 @@ class Client():
         }
 
     def get_sources(self):
+        #TODO: Loop through page_tokens
         resource = 'workspaces/' + self.workspace + '/sources'
         res = requests.get(Client.URL + resource, headers=self.get_headers(), params={ 'page_size': 100 })
         sources = res.json()['sources']
         return sources
 
     def get_destinations(self, source):
+        #TODO: Loop through page_tokens
         res = requests.get(Client.URL + source['name'] + '/destinations', headers=self.get_headers(), params={ 'page_size': 100 })
         return res.json()['destinations']
 
@@ -72,6 +74,7 @@ if __name__ == '__main__':
     graph = Graph(workspace)
     sources = client.get_sources()
     # for some reason it seems to error on large workspaces
+
     for source in sources[:40]:
         name = clean_node(source['display_name'])
         destinations = client.get_destinations(source)
